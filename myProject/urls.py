@@ -8,6 +8,10 @@ from myProject.views import *
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", book_collection, name="book_collection"),
+    path("add_book/", add_book, name="add_book"),
+    
+    path("book_view/ <int:id>", book_view, name="book_view"),
+    path("deletepage/ <int:id>", deletepage, name="deletepage"),
     
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

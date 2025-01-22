@@ -18,6 +18,7 @@
             padding: 20px;
             background-color: #d8c3a5;
             border-bottom: 3px solid #b68973;
+            position: relative;
         }
 
         header h1 {
@@ -31,6 +32,30 @@
             margin: 5px 0;
         }
 
+        .action-button {
+            text-decoration: none;
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #b68973;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-button:hover {
+            background-color: #3b3027;
+        }
+
+        .add-book-button {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+        }
+
         .container {
             max-width: 800px;
             margin: 20px auto;
@@ -42,19 +67,27 @@
 
         .book {
             display: flex;
+            align-items: center;
             gap: 15px;
             margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #d8c3a5;
+            border-radius: 8px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .book:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
         }
 
         .book img {
             max-width: 100px;
             border: 2px solid #b68973;
+            border-radius: 5px;
         }
 
         .book-details {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            flex-grow: 1;
         }
 
         .book-title,
@@ -75,6 +108,12 @@
             text-decoration: underline;
         }
 
+        .book-actions {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
+
         footer {
             text-align: center;
             padding: 20px;
@@ -93,20 +132,22 @@
     <header>
         <h1>A Home For Your Books</h1>
         <p>Rediscover the charm of timeless stories</p>
+        <a href="{% url 'add_book' %}" class="action-button add-book-button">+ Add Book</a>
     </header>
 
     <div class="container">
         <!-- Loop through books -->
         {% for book in books %}
         <div class="book">
-            <img src="/{{ book.Image }}" alt="">
+            <img src="/{{ book.Image }}" alt="Book Cover">
             <div class="book-details">
-                <h3 class="book-title">
-                    <a href="{{ book.title_link }}" target="_blank">{{ book.title }}</a>
-                </h3>
-                <p class="book-author">
-                    by <a href="{{ book.author.auther_link }}" target="_blank">{{ book.author }}</a>
-                </p>
+                <h3 class="book-title">{{ book.title }}</h3>
+                <p class="book-author">by {{ book.author }}</p>
+            </div>
+            <div class="book-actions">
+                <!-- Styled buttons for View and Delete -->
+                <a href="{% url 'book_view' book.id %}" class="action-button">View</a>
+                <a href="{% url 'deletepage' book.id %}" class="action-button">Delete</a>
             </div>
         </div>
         {% endfor %}

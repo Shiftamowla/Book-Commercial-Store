@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% for book in book %}
+        
+        
+    <title>{{ book.title }} | Book Details</title>
+    {% endfor %}
+
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f4f1ea;
+            color: #3b3027;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #d8c3a5;
+            border-bottom: 3px solid #b68973;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+            color: #3b3027;
+        }
+
+        header p {
+            font-style: italic;
+            margin: 5px 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #d8c3a5;
+        }
+
+        .book-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            text-align: center;
+        }
+
+        .book-image {
+            max-width: 300px;
+            border: 2px solid #b68973;
+            border-radius: 10px;
+        }
+
+        .book-title {
+            font-size: 2em;
+            color: #5c4533;
+            margin: 10px 0;
+        }
+
+        .book-title a {
+            color: #5c4533;
+            text-decoration: none;
+        }
+
+        .book-title a:hover {
+            text-decoration: underline;
+        }
+
+        .author-details {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #d8c3a5;
+            border-radius: 8px;
+            background-color: #f9f5ee;
+            text-align: center;
+        }
+
+        .author-image {
+            max-width: 150px;
+            border: 2px solid #b68973;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .author-name {
+            font-size: 1.5em;
+            color: #3b3027;
+        }
+
+        .author-name a {
+            color: #3b3027;
+            text-decoration: none;
+        }
+
+        .author-name a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #d8c3a5;
+            border-top: 3px solid #b68973;
+            margin-top: 20px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Book Details</h1>
+        <p>Discover the story behind every title</p>
+    </header>
+
+    <div class="container">
+        <div class="book-details">
+            
+            {% for book in book %}
+                
+                
+            <!-- Book Image -->
+            <img class="book-image" src="/{{ book.Image }}" alt="{{ book.title }} Cover">
+
+            <!-- Book Title -->
+            <h2 class="book-title">
+                {% if book.title_link %}
+                    <a href="{{ book.title_link }}" target="_blank">{{ book.title }}</a>
+                {% else %}
+                    {{ book.title }}
+                {% endif %}
+            </h2>
+
+            <!-- Author Section -->
+            <div class="author-details">
+                <img class="author-image" src="/{{ book.author.Image }}" alt="{{ book.author.name }} Picture">
+                <h3 class="author-name">
+                    {% if book.author.auther_link %}
+                        <a href="{{ book.author.auther_link }}" target="_blank">{{ book.author.name }}</a>
+                    {% else %}
+                        {{ book.author.name }}
+                    {% endif %}
+                </h3>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Vintage Books Co. All rights reserved.</p>
+        <p>Crafted with love for book enthusiasts.</p>
+    </footer>
+</body>
+</html>
