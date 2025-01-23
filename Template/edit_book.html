@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f4f1ea;
+            color: #3b3027;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #d8c3a5;
+            border-bottom: 3px solid #b68973;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+            color: #3b3027;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #d8c3a5;
+            border-radius: 8px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #b68973;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1em;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #b68973;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #3b3027;
+        }
+
+        .form-title {
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #d8c3a5;
+            border-top: 3px solid #b68973;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Add a New Book</h1>
+    </header>
+    
+    {% for i in data %}        
+
+    <div class="container">
+        <form action="{% url 'update' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-title">Book Information</div>
+
+            <input type="text" id="id" value="{{i.id}}" name="id" hidden>
+
+            <label for="title">Book Title:</label>
+            <input type="text" id="title" name="title" value="{{i.title}}"  placeholder="Enter the book title" required>
+
+            <label for="title_link">Title Link (Optional):</label>
+            <input type="url" id="title_link" name="title_link" value="{{i.title_link}}"  placeholder="Add a title link">
+
+
+
+            <button type="submit">Add Book</button>
+        </form>
+    </div>
+
+    {% endfor %}
+
+
+    <footer>
+        <p>&copy; 2025 Vintage Books Co. All rights reserved.</p>
+    </footer>
+</body>
+</html>

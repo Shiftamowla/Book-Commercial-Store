@@ -30,3 +30,4 @@ def add_book(req):
         books.save()
         return redirect('book_collection')
     return render(req,'add_book.html')
+

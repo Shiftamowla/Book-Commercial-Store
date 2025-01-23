@@ -13,5 +13,4 @@ urlpatterns = [
     path("book_view/ <int:id>", book_view, name="book_view"),
     path("deletepage/ <int:id>", deletepage, name="deletepage"),
     
-    
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
