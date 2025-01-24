@@ -16,18 +16,50 @@ def deletepage(req, id):
     data.delete()    
     return redirect("book_collection")
 
-def add_book(req):
-    if req.method=='POST':
-        title=req.POST.get('title')
-        title_link=req.POST.get('title_link')
-        image=req.FILES.get('image')
 
-        books=Book(
+def add_book(request):
+    if request.method == "POST":
+        title = request.POST.get('title')
+        title_link = request.POST.get('title_link')
+        image = request.FILES.get('image')
+        author_id = request.POST.get('author')
+
+        author = Author.objects.get(id=author_id)
+        
+        new_book = Book(
             title=title,
             title_link=title_link,
             Image=image,
+            author=author
         )
-        books.save()
+        new_book.save()
+
+        return redirect('book_collection') 
+
+
+    authors = Author.objects.all()
+    return render(request, 'add_book.html', {'authors': authors})
+
+def edit_book(req, id):
+
+    book = get_object_or_404(Book, id=id)
+    authors = Author.objects.all() 
+    return render(req, 'edit_book.html', {'book': book, 'authors': authors})
+
+def update(req):
+    if req.method == 'POST':
+        id = req.POST.get('id')
+        book = get_object_or_404(Book, id=id)
+
+        book.title = req.POST.get('title')
+        book.title_link = req.POST.get('title_link')
+        book.author_id = req.POST.get('author')
+
+        if 'image' in req.FILES:
+            book.Image = req.FILES['image'] 
+        book.save()
+
         return redirect('book_collection')
-    return render(req,'add_book.html')
+    else:
+        return redirect('edit_book', id=id)
 

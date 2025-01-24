@@ -90,28 +90,44 @@
         <h1>Add a New Book</h1>
     </header>
     
-    {% for i in data %}        
 
     <div class="container">
-        <form action="{% url 'update' %}" method="post" enctype="multipart/form-data">
+        <form action="{% url 'update' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="form-title">Book Information</div>
-
-            <input type="text" id="id" value="{{i.id}}" name="id" hidden>
-
+            <div class="form-title">Edit Book Information</div>
+        
+            <!-- Hidden field to send the book ID -->
+            <input type="hidden" name="id" value="{{ book.id }}">
+        
+            <!-- Book Title -->
             <label for="title">Book Title:</label>
-            <input type="text" id="title" name="title" value="{{i.title}}"  placeholder="Enter the book title" required>
-
+            <input type="text" id="title" name="title" value="{{ book.title }}" required>
+        
+            <!-- Title Link -->
             <label for="title_link">Title Link (Optional):</label>
-            <input type="url" id="title_link" name="title_link" value="{{i.title_link}}"  placeholder="Add a title link">
-
-
-
-            <button type="submit">Add Book</button>
+            <input type="url" id="title_link" name="title_link" value="{{ book.title_link }}">
+        
+            <!-- Book Image -->
+            <label for="image">Book Image (Optional):</label>
+            <input type="file" id="image" name="image" accept="image/*">
+        
+            <!-- Author Selection -->
+            <label for="author">Author:</label>
+            <select id="author" name="author" required>
+                <option value="">Select an author</option>
+                {% for author in authors %}
+                <option value="{{ author.id }}" {% if author.id == book.author.id %}selected{% endif %}>
+                    {{ author.name }}
+                </option>
+                {% endfor %}
+            </select>
+        
+            <!-- Submit Button -->
+            <button type="submit">Update Book</button>
         </form>
+        
     </div>
 
-    {% endfor %}
 
 
     <footer>

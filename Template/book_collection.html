@@ -147,6 +147,7 @@
             <div class="book-actions">
                 <!-- Styled buttons for View and Delete -->
                 <a href="{% url 'book_view' book.id %}" class="action-button">View</a>
+                <a href="{% url 'edit_book' book.id %}" class="action-button">Edit</a>
                 <a href="{% url 'deletepage' book.id %}" class="action-button">Delete</a>
             </div>
         </div>
