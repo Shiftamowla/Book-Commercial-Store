@@ -141,8 +141,12 @@
         <div class="book">
             <img src="/{{ book.Image }}" alt="Book Cover">
             <div class="book-details">
-                <h3 class="book-title">{{ book.title }}</h3>
-                <p class="book-author">by {{ book.author }}</p>
+                <h3 class="book-title">
+                    <a href="{{ book.title_link }}" target="_blank">{{ book.title }}</a>
+                </h3>
+                <p class="book-author">
+                    by <a href="{{ book.author.auther_link }}" target="_blank">{{ book.author }}</a>
+                </p>
             </div>
             <div class="book-actions">
                 <!-- Styled buttons for View and Delete -->
